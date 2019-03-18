@@ -6,7 +6,7 @@
 /*   By: Z·J <w3313003@163.com>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 23:10:45 by Z·J               #+#    #+#             */
-/*   Updated: 2019/01/05 03:30:53 by Z·J              ###   ########.fr       */
+/*   Updated: 2019/03/19 00:06:10 by Z·J              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@ const fs = require("fs");
 const { exec } = require('child_process');
 const readline = require('readline');
 const { resolve } = require("path");
+const qs = require('querystring');
 const args = process.argv.slice(2);
 try {
     if(args.length) {
@@ -43,7 +44,7 @@ try {
 };
 function run(target, compress = false) {
     exec(`stylus -w ./dir/index.styl -o ./dir ${compress ? '-c' : ''}`);
-    console.log(`初始化成功,wxss文件将储存至${resolve(target)},当前进程PID为${process.pid}`);
+    console.log(`初始化成功,wxss文件将储存至${resolve(target)},当前进程PID为${process.pid}. \n you can use 'taskkill -PID ${process.pid} -F'(in Windows) or 'kill ${process.pid}'(in Linux or MacOS) to quit the program`);
     return fs.watch('./dir/index.styl', {
         encoding: "utf-8"
     }, function() {
